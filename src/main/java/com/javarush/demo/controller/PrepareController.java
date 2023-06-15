@@ -5,8 +5,10 @@ import com.javarush.demo.entity.Order;
 import com.javarush.demo.entity.Shawarma;
 import com.javarush.demo.entity.Type;
 import com.javarush.demo.repository.IngredientRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,9 +49,24 @@ public void addIngredientsToModel(Model model) {
     return "prepare";
   }
 
+  @GetMapping("/jsoningred")
+  public String getIngredients(Model model) {
+      final List<Ingredient> all = ingredientRepository.findAll();
+      for (Ingredient ingredient : all) {
+          model.addAttribute(ingredient);
+      }
+      return "jsonIngredient";
+  }
+
   @PostMapping
-  public String processShawarma(Shawarma shawarma,
-  			@ModelAttribute Order order) {
+  public String processShawarma(@Valid Shawarma shawarma,
+                                Errors errors,
+  			                    @ModelAttribute Order order) {
+
+      if (errors.hasErrors()) {
+          return "prepare";
+      }
+
       order.addShawarma(shawarma);
 
     return "redirect:/order";

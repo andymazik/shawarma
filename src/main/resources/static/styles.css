@@ -23,3 +23,7 @@ div.ingredient-group {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+span.validationError {
+    color: red;
+}
