@@ -5,12 +5,12 @@ import com.javarush.demo.entity.Order;
 import com.javarush.demo.entity.Shawarma;
 import com.javarush.demo.entity.Type;
 import com.javarush.demo.repository.IngredientRepository;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -48,6 +48,11 @@ public void addIngredientsToModel(Model model) {
   public String showDesignForm() {
     return "prepare";
   }
+
+//  @GetMapping("/login")
+//  public String showLoginPage() {
+//        return "login";
+//    }
 
   @GetMapping("/jsoningred")
   public String getIngredients(Model model) {
